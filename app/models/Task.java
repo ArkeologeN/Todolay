@@ -1,6 +1,7 @@
 package models;
 
 import java.util.*;
+
 import javax.persistence.*;
 
 import play.db.ebean.*;
@@ -10,6 +11,7 @@ import play.data.validation.*;
 @Entity 
 @Table(name="tasks")
 public class Task extends Model {
+	
 
   @Id
   @Constraints.Min(10)
@@ -26,5 +28,18 @@ public class Task extends Model {
   public static Finder<Long,Task> find = new Finder<Long,Task>(
     Long.class, Task.class
   ); 
-
+  	
+  	public static List<Task> all() {
+  		//return new ArrayList<Task>();
+  		return find.all();
+  	}
+  	
+  	public static void createTask(Task task) {
+  		task.save();
+  	}
+  	
+  	public static void deleteTask(Long id) {
+  		find.ref(id).delete();
+  	}
+  	
 }
